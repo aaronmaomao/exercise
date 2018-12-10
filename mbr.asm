@@ -5,6 +5,8 @@ mov ax, cs
 mov ds, ax
 mov es, ax
 mov ss, ax
+mov ax, 0xb800
+mov gs, ax
 
 clear:
 mov ah, 0x06	;清屏的功能号
@@ -18,6 +20,19 @@ get_cursor:
 mov ah, 3
 mov bh, 0
 int 0x10
+
+put_chars:
+mov byte [gs:0x00], 'H'
+mov byte [gs:0x01], 0xa4
+mov byte [gs:0x02], 'e'
+mov byte [gs:0x03], 0xa4
+mov byte [gs:0x04], 'l'
+mov byte [gs:0x05], 0xa4
+mov byte [gs:0x06], 'l'
+mov byte [gs:0x07], 0xa4
+mov byte [gs:0x08], 'o'
+mov byte [gs:0x09], 0xa4
+jmp $
 
 put_char:
 mov ax, message
